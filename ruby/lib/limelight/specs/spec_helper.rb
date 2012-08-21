@@ -114,7 +114,7 @@ module Limelight
           @ll_player_names = @ll_player_names.is_a?(Array) ? @ll_player_names : [@ll_player_names]
           @ll_player_names = @ll_player_names.map { |n| n.to_s }
           @ll_player_names.each do |player_name|
-            eval "def #{player_name}; scene.find('#{player_name}'); end;"
+            self.class.class_eval "def #{player_name}; scene.find('#{player_name}'); end;"
           end
         end
       end
