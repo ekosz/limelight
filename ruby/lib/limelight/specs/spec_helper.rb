@@ -7,6 +7,7 @@ require 'limelight/production'
 require 'limelight/scene'
 require 'limelight/string'
 require 'limelight/mouse'
+require 'limelight/keyboard'
 
 module Limelight
 
@@ -85,6 +86,11 @@ module Limelight
         @mouse
       end
 
+      def keyboard
+        @keyboard ||= Limelight::Keyboard.new
+        @keyboard
+      end
+
       def scene
         if @scene.nil?
           _setup_stage
@@ -134,7 +140,7 @@ module Limelight
         _create_player_helpers
         Limelight.build_props(@scene, :root_path => production.path, &@prop_block) if @prop_block
 
-        production.load_styles(@scene, production.styles)
+        @scene.peer.styles = production.load_styles(@scene, production.styles)
         @stage.scene = @scene
         @stage.open
       end
